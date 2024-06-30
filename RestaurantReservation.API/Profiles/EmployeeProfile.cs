@@ -14,6 +14,7 @@ namespace RestaurantReservation.API.Profiles
             CreateMap<EmployeeForCreationDto, Db.Models.Employee>();
             CreateMap<EmployeeForUpdateDto, Db.Models.Employee>();
             CreateMap<Db.Models.Employee, EmployeeForUpdateDto>();
+            CreateMap<Db.Models.EmployeeWithRestaurantDetails, EmployeeWithRestaurantDetailsDto>();
         }
     }
 }

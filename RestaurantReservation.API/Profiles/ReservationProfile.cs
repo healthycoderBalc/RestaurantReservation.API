@@ -13,6 +13,7 @@ namespace RestaurantReservation.API.Profiles
             CreateMap<ReservationForCreationDto, Db.Models.Reservation>();
             CreateMap<ReservationForUpdateDto, Db.Models.Reservation>();
             CreateMap<Db.Models.Reservation, ReservationForUpdateDto>();
+            CreateMap<Db.Models.ReservationWithDetails, ReservationWithDetailsDto>();
         }
     }
 }

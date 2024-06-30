@@ -96,5 +96,12 @@ namespace RestaurantReservation.API.Controllers
 
             return NoContent();
         }
+
+        [HttpGet("{restaurantId}/total-revenue")]
+        public async Task<ActionResult<decimal>> GetTotalRevenue(int restaurantId)
+        {
+            var totalRevenue = await _restaurantRepository.GetRestaurantTotalRevenueAsync(restaurantId);
+            return Ok(totalRevenue);
+        }
     }
 }

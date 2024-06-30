@@ -20,10 +20,16 @@ namespace RestaurantReservation.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<EmployeeWithoutListsDto>>> GetEmployees()
+        public async Task<ActionResult<IEnumerable<EmployeeWithoutListsDto>>> GetEmployees([FromQuery] bool withRestaurantDetails = false)
         {
+            if (withRestaurantDetails)
+            {
+                var employeeEntitiesWithRestaurantDetails = await _employeeRepository.GetEmployeesWithRestaurantDetailsFromViewAsync();
+                return Ok(_mapper.Map<IEnumerable<EmployeeWithRestaurantDetailsDto>>(employeeEntitiesWithRestaurantDetails));
+            }
             var employeeEntities = await _employeeRepository.GetEmployeesAsync();
             return Ok(_mapper.Map<IEnumerable<EmployeeWithoutListsDto>>(employeeEntities));
+
         }
 
         [HttpGet("{id}", Name = "GetEmployee")]
@@ -110,5 +116,19 @@ namespace RestaurantReservation.API.Controllers
             return NoContent();
         }
 
+        [HttpGet("managers")]
+        public async Task<ActionResult<IEnumerable<Employee>>> GetManagers()
+        {
+            var managers = await _employeeRepository.ListManagersAsync();
+
+            return Ok(_mapper.Map<IEnumerable<EmployeeWithoutListsDto>>(managers));
+        }
+
+        [HttpGet("{employeeId}/average-order-amount")]
+        public async Task<ActionResult<decimal>> GetAverageOrderAmount(int employeeId)
+        {
+            var calculatedAverage = await _employeeRepository.CalculateAverageOrderAmountAsync(employeeId);
+            return Ok(calculatedAverage);
+        }
     }
 }

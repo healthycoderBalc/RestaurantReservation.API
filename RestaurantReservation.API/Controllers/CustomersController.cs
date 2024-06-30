@@ -25,8 +25,13 @@ namespace RestaurantReservation.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CustomerWithoutListsDto>>> GetCustomers()
+        public async Task<ActionResult<IEnumerable<CustomerWithoutListsDto>>> GetCustomers([FromQuery] int partySize)
         {
+            if (partySize > 0)
+            {
+                var customerEntitiesWithPartySize = await _customerRepository.CustomerWithPartySizeGreaterThanAsync(partySize);
+                return Ok(_mapper.Map<IEnumerable<CustomerWithoutListsDto>>(customerEntitiesWithPartySize));
+            }
             var customerEntities = await _customerRepository.GetCustomersAsync();
 
             return Ok(_mapper.Map<IEnumerable<CustomerWithoutListsDto>>(customerEntities));
@@ -99,6 +104,5 @@ namespace RestaurantReservation.API.Controllers
 
             return NoContent();
         }
-
     }
 }
