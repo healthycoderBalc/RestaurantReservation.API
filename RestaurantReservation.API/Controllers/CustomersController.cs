@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ namespace RestaurantReservation.API.Controllers
 {
 
     [ApiController]
+    [Authorize]
     [Route("api/customers")]
     public class CustomersController : ControllerBase
     {
