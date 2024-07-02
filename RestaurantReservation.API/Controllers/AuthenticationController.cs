@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using RestaurantReservation.API.Contracts.Responses;
 using RestaurantReservation.API.Models.Authentication;
 using RestaurantReservation.Db.Models;
 using RestaurantReservation.Db.Repositories;
@@ -10,6 +11,7 @@ using System.Security.Claims;
 
 namespace RestaurantReservation.API.Controllers
 {
+  
     [Route("api/authentication")]
     [ApiController]
     public class AuthenticationController : ControllerBase
@@ -25,7 +27,16 @@ namespace RestaurantReservation.API.Controllers
 
         }
 
+        /// <summary>
+        /// Authenticate user
+        /// </summary>
+        /// <param name="authenticationRequestBody">UserName, LastName and password (id)</param>
+        /// <response code="200">Returns the token</response>
+        /// <returns>A valid token</returns>
         [HttpPost("authenticate")]
+        [Consumes("application/json")]
+        [ProducesResponseType(typeof(NotOkResponse), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(AuthorizedResponse), StatusCodes.Status200OK)]
         public async Task<ActionResult<string>> Authenticate(AuthenticationRequestBody authenticationRequestBody)
         {
             var user = await ValidateUserCredentials(

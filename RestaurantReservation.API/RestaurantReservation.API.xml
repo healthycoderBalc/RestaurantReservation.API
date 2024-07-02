@@ -1,0 +1,702 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>RestaurantReservation.API</name>
+    </assembly>
+    <members>
+        <member name="T:RestaurantReservation.API.Contracts.Responses.AuthorizedResponse">
+            <summary>
+            Token comming from Authorization
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Contracts.Responses.AuthorizedResponse.Token">
+            <summary>
+            A valid token
+            </summary>
+        </member>
+        <member name="T:RestaurantReservation.API.Contracts.Responses.NotOkResponse">
+            <summary>
+             Error response
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Contracts.Responses.NotOkResponse.Type">
+            <summary>
+             type
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Contracts.Responses.NotOkResponse.Title">
+            <summary>
+             Error Title
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Contracts.Responses.NotOkResponse.Status">
+            <summary>
+            Error status
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Contracts.Responses.NotOkResponse.TraceId">
+            <summary>
+            Error trace ID
+            </summary>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.AuthenticationController.Authenticate(RestaurantReservation.API.Models.Authentication.AuthenticationRequestBody)">
+            <summary>
+            Authenticate user
+            </summary>
+            <param name="authenticationRequestBody">UserName, LastName and password (id)</param>
+            <response code="200">Returns the token</response>
+            <returns>A valid token</returns>
+        </member>
+        <member name="T:RestaurantReservation.API.Controllers.CustomersController">
+            <summary>
+             Customer endpoints
+            </summary>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.CustomersController.GetCustomers(System.Int32)">
+            <summary>
+             Get all customers
+            </summary>
+            <param name="partySize">When partySize provided, get customers with party size greater than value provided</param>
+            <response code="200">Returns the customers</response>
+            <returns>Customers</returns>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.CustomersController.GetCustomer(System.Int32,System.Boolean)">
+            <summary>
+            Get a customer by id
+            </summary>
+            <param name="id">The id of the customer to get</param>
+            <param name="includeLists">Whether or not to include the associated lists in the response</param>
+            <response code="200">Returns the requested customer</response>
+            <returns>A customer</returns>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.CustomersController.CreateCustomer(RestaurantReservation.API.Models.Customer.CustomerForCreationDto)">
+            <summary>
+             Create a customer
+            </summary>
+            <param name="customer">Customer data for creation</param>
+            <response code="201">Returns the created customer</response>
+            <returns>The created customer</returns>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.CustomersController.UpdateCustomer(System.Int32,RestaurantReservation.API.Models.Customer.CustomerForUpdateDto)">
+            <summary>
+            Update a customer by its ID
+            </summary>
+            <param name="id">Id of the customer</param>
+            <param name="customer">Customer object in json format</param>
+            <response code="204">No content (update was successfull)</response>
+            <returns>No content (update was successfull)</returns>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.CustomersController.DeleteCustomer(System.Int32)">
+            <summary>
+            Delete a customer by its ID
+            </summary>
+            <param name="id"></param>
+            <response code="204">No content (Delete was successfull)</response>
+            <returns>No content (Delete was successfull)</returns>
+        </member>
+        <member name="T:RestaurantReservation.API.Controllers.EmployeesController">
+            <summary>
+            Employees endpoints
+            </summary>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.EmployeesController.GetEmployees(System.Boolean)">
+            <summary>
+            Get all employees
+            </summary>
+            <param name="withRestaurantDetails">Whether or not show the restaurant details for an employee</param>
+            <response code="200">Returns the employees</response>
+            <returns>Employees</returns>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.EmployeesController.GetEmployee(System.Int32,System.Boolean)">
+            <summary>
+            Get an employee by id
+            </summary>
+            <param name="id">Id of employee to get</param>
+            <param name="includeLists">Whether or not to include the associated lists in the response</param>
+            <response code="200">Returns the requested employee</response>
+            <returns>An employee</returns>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.EmployeesController.CreateEmployee(RestaurantReservation.API.Models.Employee.EmployeeForCreationDto)">
+            <summary>
+             Create an employee
+            </summary>
+            <param name="employee">Employee data for creation</param>
+            <response code="201">Returns the created employee</response>
+            <returns>The created employee</returns>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.EmployeesController.UpdateEmployee(System.Int32,RestaurantReservation.API.Models.Employee.EmployeeForUpdateDto)">
+            <summary>
+            Update an employee by its ID
+            </summary>
+            <param name="id">Id of the employee</param>
+            <param name="employee">Employee object in json format</param>
+            <response code="204">No content (update was successfull)</response>
+            <returns>No content</returns>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.EmployeesController.DeleteEmployee(System.Int32)">
+            <summary>
+             Delete an employee by id
+            </summary>
+            <param name="id">id of the employee for deletion</param>
+            <response code="204">No content (Delete was successfull)</response>
+            <returns>No content (Delete was successfull)</returns>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.EmployeesController.GetManagers">
+            <summary>
+            Get all managers
+            </summary>
+            <response code="200">Employees who are managers</response>
+            <returns>Employees</returns>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.EmployeesController.GetAverageOrderAmount(System.Int32)">
+            <summary>
+             Get average order amount by employee id
+            </summary>
+            <param name="employeeId">id of the employee</param>
+            <response code="200">Average</response>
+            <returns>Average</returns>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.MenuItemsController.GetMenuItems">
+            <summary>
+            Get all Menu Items
+            </summary>
+            <response code="200">Returns the menu items</response>
+            <returns>Menu Items</returns>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.MenuItemsController.GetMenuItem(System.Int32,System.Boolean)">
+            <summary>
+            Get Menu Item by id
+            </summary>
+            <param name="id">Id of the menu item to get</param>
+            <param name="includeLists">whether or not to include associated lists</param>
+            <returns></returns>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.MenuItemsController.CreateMenuItem(RestaurantReservation.API.Models.MenuItem.MenuItemForCreationDto)">
+            <summary>
+             Create a menu item
+            </summary>
+            <param name="menuItem"> Menu Item data for creation</param>
+            <response code="201">Returns the created menu item</response>
+            <returns>The created menu item</returns>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.MenuItemsController.UpdateMenuItem(System.Int32,RestaurantReservation.API.Models.MenuItem.MenuItemForUpdateDto)">
+            <summary>
+            Update a menu item by id
+            </summary>
+            <param name="id">id of the menu item</param>
+            <param name="menuItem">Menu item object in json format</param>
+            <response code="204">No content (update was successfull)</response>
+            <returns>No content (update was successfull)</returns>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.MenuItemsController.DeleteMenuItem(System.Int32)">
+            <summary>
+            Delete menu item by id
+            </summary>
+            <param name="id">id of menu item for deletion</param>
+            <response code="204">No content (Delete was successfull)</response>
+            <returns>No content (Delete was successfull)</returns>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.OrderItemsController.GetOrderItems">
+            <summary>
+            Get all Order Items
+            </summary>
+            <response code="200">Returns the order items</response>
+            <returns>Order Items</returns>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.OrderItemsController.GetOrderItem(System.Int32)">
+            <summary>
+            Get Order Item by id
+            </summary>
+            <param name="id">order item id</param>
+            <response code="200">Returns the requested order item</response>
+            <returns>A order item</returns>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.OrderItemsController.CreateOrderItem(RestaurantReservation.API.Models.OrderItem.OrderItemForCreationDto)">
+            <summary>
+            Create an order item
+            </summary>
+            <param name="orderItem">order item data for creation</param>
+            <response code="201">Returns the created order item</response>
+            <returns>The created order item</returns>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.OrderItemsController.UpdateOrderItem(System.Int32,RestaurantReservation.API.Models.OrderItem.OrderItemForUpdateDto)">
+            <summary>
+             Update Order Item by id
+            </summary>
+            <param name="id">id of order item</param>
+            <param name="orderItem">Order item object in json format</param>
+            <response code="204">No content (update was successfull)</response>
+            <returns>No content (update was successfull)</returns>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.OrderItemsController.DeleteOrderItem(System.Int32)">
+            <summary>
+            Delete Order item by id
+            </summary>
+            <param name="id">id of order item</param>
+            <response code="204">No content (Delete was successfull)</response>
+            <returns>No content (Delete was successfull)</returns>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.OrdersController.GetOrders">
+            <summary>
+            Get all Orders
+            </summary>
+            <response code="201">Returns the orders</response>
+            <returns>Orders</returns>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.OrdersController.GetOrder(System.Int32,System.Boolean)">
+            <summary>
+            Get order by id
+            </summary>
+            <param name="id">customer id</param>
+            <param name="includeLists">Whether or not to include the associated lists in the response</param>
+            <response code="200">Returns the requested order</response>
+            <returns>A order</returns>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.OrdersController.CreateOrder(RestaurantReservation.API.Models.Order.OrderForCreationDto)">
+            <summary>
+            Create an order
+            </summary>
+            <param name="order">order data for creation</param>
+            <response code="200">Returns the created order</response>
+            <returns>The created order</returns>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.OrdersController.UpdateOrder(System.Int32,RestaurantReservation.API.Models.Order.OrderForUpdateDto)">
+            <summary>
+            Update order by id
+            </summary>
+            <param name="id">id of order</param>
+            <param name="order">Order object in json format</param>
+            <response code="204">No content (update was successfull)</response>
+            <returns>No content (update was successfull)</returns>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.OrdersController.DeleteOrder(System.Int32)">
+            <summary>
+            Delete order by id
+            </summary>
+            <param name="id">id of order</param>
+            <response code="204">No content (Delete was successfull)</response>
+            <returns>No content (Delete was successfull)</returns>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.ReservationsController.GetReservations(System.Boolean)">
+            <summary>
+            Get all reservations
+            </summary>
+            <param name="withExtraInfo">Weather or not to include extra information</param>
+            <response code="200">Returns the Reservations</response>
+            <returns>Reservations</returns>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.ReservationsController.GetReservation(System.Int32,System.Boolean)">
+            <summary>
+            Get a reservation by id
+            </summary>
+            <param name="id">reservation id</param>
+            <param name="includeLists">Whether or not to include associated lists</param>
+            <response code="200">Returns the requested reservation</response>
+            <returns>A reservation</returns>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.ReservationsController.CreateReservation(RestaurantReservation.API.Models.Reservation.ReservationForCreationDto)">
+            <summary>
+            Create a reservation
+            </summary>
+            <param name="reservation">reservation data for creation</param>
+            <response code="201">Returns the created customer</response>
+            <returns>The created customer</returns>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.ReservationsController.UpdateReservation(System.Int32,RestaurantReservation.API.Models.Reservation.ReservationForUpdateDto)">
+            <summary>
+            Update a reservation by id
+            </summary>
+            <param name="id">reservation id</param>
+            <param name="reservation">Reservation object in json format</param>
+            <response code="204">No content (update was successfull)</response>
+            <returns>No content (update was successfull)</returns>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.ReservationsController.DeleteReservation(System.Int32)">
+            <summary>
+            Delete a reservation by id
+            </summary>
+            <param name="id">reservation id</param>
+            <response code="204">No content (Delete was successfull)</response>
+            <returns>No content (Delete was successfull)</returns>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.ReservationsController.GetReservationsByCustomerId(System.Int32)">
+            <summary>
+            Get reservations by customer id
+            </summary>
+            <param name="customerId">customer id</param>
+            <response code="200">Returns the reservations for that customer</response>
+            <returns>Reservations</returns>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.ReservationsController.GetOrdersByReservation(System.Int32)">
+            <summary>
+            Get orders by reservation id
+            </summary>
+            <param name="reservationId">reservation id</param>
+            <response code="200">Returns the orders for a reservation</response>
+            <returns>Orders</returns>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.ReservationsController.GetOrderedMenusByReservation(System.Int32)">
+            <summary>
+             Get Ordered Menues by reservation id
+            </summary>
+            <param name="reservationId">reservation id</param>
+            <response code="200">Returns the menu items for a reservation</response>
+            <returns>Menu Items</returns>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.RestaurantsController.GetRestaurants">
+            <summary>
+            Get Restaurants
+            </summary>
+            <response code="200">Returns the restaurants</response>
+            <returns>Restaurants</returns>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.RestaurantsController.GetRestaurant(System.Int32,System.Boolean)">
+            <summary>
+            Get restaurant by id
+            </summary>
+            <param name="id">restaurant id</param>
+            <param name="includeLists">Whether or not to include associated lists</param>
+            <response code="200">Returns the requested restaurant</response>
+            <returns>A restaurant</returns>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.RestaurantsController.CreateRestaurant(RestaurantReservation.API.Models.Restaurant.RestaurantForCreationDto)">
+            <summary>
+            Create a restaurant
+            </summary>
+            <param name="restaurant">Restaurant data for creation</param>
+            <response code="201">Returns the created restaurant</response>
+            <returns>The created restaurant</returns>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.RestaurantsController.UpdateRestaurant(System.Int32,RestaurantReservation.API.Models.Restaurant.RestaurantForUpdateDto)">
+            <summary>
+            Update a restaurant by id
+            </summary>
+            <param name="id">restaurant id</param>
+            <param name="restaurant">restaurant object in json format</param>
+            <response code="204">No content (update was successfull)</response>
+            <returns>No content (update was successfull)</returns>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.RestaurantsController.DeleteRestaurant(System.Int32)">
+            <summary>
+            Delete restaurant by id
+            </summary>
+            <param name="id">Restaurant id</param>
+            <response code="204">No content (Delete was successfull)</response>
+            <returns>No content (Delete was successfull)</returns>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.RestaurantsController.GetTotalRevenue(System.Int32)">
+            <summary>
+            Get total revenue for a restaurant
+            </summary>
+            <param name="restaurantId">restaurant id</param>
+            <response code="200">Returns total revenue</response>
+            <returns>total revenue</returns>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.TablesController.GetTables">
+            <summary>
+            Get all tables
+            </summary>
+            <response code="200">Returns the tables</response>
+            <returns>Tables</returns>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.TablesController.GetTable(System.Int32,System.Boolean)">
+            <summary>
+            Get a table by id
+            </summary>
+            <param name="id">table id</param>
+            <param name="includeLists">Whether or not to include associated lists</param>
+            <response code="200">Returns the requested table</response>
+            <returns>A table</returns>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.TablesController.CreateTable(RestaurantReservation.API.Models.Table.TableForCreationDto)">
+            <summary>
+            Create a table
+            </summary>
+            <param name="table">Table data for creation</param>
+            <response code="201">Returns the created table</response>
+            <returns>The created table</returns>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.TablesController.UpdateTable(System.Int32,RestaurantReservation.API.Models.Table.TableForUpdateDto)">
+            <summary>
+            Update a table by id
+            </summary>
+            <param name="id">table id</param>
+            <param name="table">Table object in json format</param>
+            <response code="204">No content (update was successfull)</response>
+            <returns>No content (update was successfull)</returns>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.TablesController.DeleteTable(System.Int32)">
+            <summary>
+            Delete a table by id
+            </summary>
+            <param name="id">table id</param>
+            <response code="204">No content (Delete was successfull)</response>
+            <returns>No content (Delete was successfull)</returns>
+        </member>
+        <member name="T:RestaurantReservation.API.Models.Customer.CustomerDto">
+            <summary>
+            A customer without associated lists
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.Customer.CustomerDto.CustomerId">
+            <summary>
+            Id of customer
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.Customer.CustomerDto.FirstName">
+            <summary>
+             First name of customer
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.Customer.CustomerDto.LastName">
+            <summary>
+            Last name of customer
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.Customer.CustomerDto.Email">
+            <summary>
+            Email address of customer
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.Customer.CustomerDto.PhoneNumber">
+            <summary>
+             Phone number of customer
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.Customer.CustomerDto.Reservations">
+            <summary>
+            List of reservations associated to the customer
+            </summary>
+        </member>
+        <member name="T:RestaurantReservation.API.Models.Customer.CustomerWithoutListsDto">
+            <summary>
+            A customer without associated lists
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.Customer.CustomerWithoutListsDto.CustomerId">
+            <summary>
+            Id of customer
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.Customer.CustomerWithoutListsDto.FirstName">
+            <summary>
+             First name of customer
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.Customer.CustomerWithoutListsDto.LastName">
+            <summary>
+            Last name of customer
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.Customer.CustomerWithoutListsDto.Email">
+            <summary>
+            Email address of customer
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.Customer.CustomerWithoutListsDto.PhoneNumber">
+            <summary>
+             Phone number of customer
+            </summary>
+        </member>
+        <member name="T:RestaurantReservation.API.Models.Employee.EmployeeWithoutListsDto">
+            <summary>
+            An employee without associated lists
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.Employee.EmployeeWithoutListsDto.EmployeeId">
+            <summary>
+            Id of employee
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.Employee.EmployeeWithoutListsDto.FirstName">
+            <summary>
+            First name of employee
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.Employee.EmployeeWithoutListsDto.LastName">
+            <summary>
+            Last name of employee
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.Employee.EmployeeWithoutListsDto.Position">
+            <summary>
+            position of employee
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.Employee.EmployeeWithoutListsDto.Restaurant">
+            <summary>
+             Restaurant where the employee works
+            </summary>
+        </member>
+        <member name="T:RestaurantReservation.API.Models.MenuItem.MenuItemWithoutListsDto">
+            <summary>
+            Menu Item
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.MenuItem.MenuItemWithoutListsDto.MenuItemId">
+            <summary>
+            Id of menu item
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.MenuItem.MenuItemWithoutListsDto.Name">
+            <summary>
+            menu item name
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.MenuItem.MenuItemWithoutListsDto.Description">
+            <summary>
+            Description of menu item
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.MenuItem.MenuItemWithoutListsDto.Price">
+            <summary>
+             Price of menu item
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.MenuItem.MenuItemWithoutListsDto.Restaurant">
+            <summary>
+            Restaurant where the menu item is ofered
+            </summary>
+        </member>
+        <member name="T:RestaurantReservation.API.Models.OrderItem.OrderItemDto">
+            <summary>
+            Order Item
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.OrderItem.OrderItemDto.OrderItemId">
+            <summary>
+            Id of order item
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.OrderItem.OrderItemDto.Quantity">
+            <summary>
+            Quantity of order item
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.OrderItem.OrderItemDto.Order">
+            <summary>
+            Order for order item
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.OrderItem.OrderItemDto.MenuItem">
+            <summary>
+            menu item for order item
+            </summary>
+        </member>
+        <member name="T:RestaurantReservation.API.Models.Order.OrderWithoutListsDto">
+            <summary>
+            An order
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.Order.OrderWithoutListsDto.OrderId">
+            <summary>
+            Id of order
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.Order.OrderWithoutListsDto.OrderDate">
+            <summary>
+            Date of order
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.Order.OrderWithoutListsDto.TotalAmount">
+            <summary>
+            Total amount of the order
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.Order.OrderWithoutListsDto.Reservation">
+            <summary>
+            Reservation for the order
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.Order.OrderWithoutListsDto.Employee">
+            <summary>
+            Employee for the order
+            </summary>
+        </member>
+        <member name="T:RestaurantReservation.API.Models.Reservation.ReservationWithoutListsDto">
+            <summary>
+            reservation
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.Reservation.ReservationWithoutListsDto.ReservationId">
+            <summary>
+            id for reservation
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.Reservation.ReservationWithoutListsDto.ReservationDate">
+            <summary>
+            reservation date
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.Reservation.ReservationWithoutListsDto.PartySize">
+            <summary>
+             Party size of reservation
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.Reservation.ReservationWithoutListsDto.Customer">
+            <summary>
+            Customer who made the reservation
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.Reservation.ReservationWithoutListsDto.Restaurant">
+            <summary>
+            Restaurant associated to reservation
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.Reservation.ReservationWithoutListsDto.Table">
+            <summary>
+            reservation table
+            </summary>
+        </member>
+        <member name="T:RestaurantReservation.API.Models.Restaurant.RestaurantWithoutListsDto">
+            <summary>
+            Restaurant
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.Restaurant.RestaurantWithoutListsDto.RestaurantId">
+            <summary>
+            id of restaurant
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.Restaurant.RestaurantWithoutListsDto.Name">
+            <summary>
+            Name of restaurant
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.Restaurant.RestaurantWithoutListsDto.Address">
+            <summary>
+            Address of restaurant
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.Restaurant.RestaurantWithoutListsDto.PhoneNumber">
+            <summary>
+            Phone number of restaurant
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.Restaurant.RestaurantWithoutListsDto.OpeningHours">
+            <summary>
+            Opening Hours of restaurant
+            </summary>
+        </member>
+        <member name="T:RestaurantReservation.API.Models.Table.TableWithoutListsDto">
+            <summary>
+            Table
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.Table.TableWithoutListsDto.TableId">
+            <summary>
+            Id of table
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.Table.TableWithoutListsDto.Capacity">
+            <summary>
+            Capacity of table
+            </summary>
+        </member>
+        <member name="P:RestaurantReservation.API.Models.Table.TableWithoutListsDto.Restaurant">
+            <summary>
+            Restaurant where the table is
+            </summary>
+        </member>
+    </members>
+</doc>
