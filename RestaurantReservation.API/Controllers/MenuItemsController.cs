@@ -46,12 +46,17 @@ namespace RestaurantReservation.API.Controllers
 
         [HttpPost]
         public async Task<ActionResult<MenuItemDto>> CreateMenuItem(
-        MenuItemForCreationDto menuItem)
+        [FromBody] MenuItemForCreationDto menuItem)
         {
             var restaurantId = menuItem.RestaurantId;
             if (!await _menuItemRepository.RestaurantExistsAsync(menuItem.RestaurantId))
             {
-                return NotFound();
+                return NotFound("Invalid restaurant ID");
+            }
+
+            if (menuItem == null)
+            {
+                return BadRequest();
             }
 
             var finalMenuItem = _mapper.Map<MenuItem>(menuItem);

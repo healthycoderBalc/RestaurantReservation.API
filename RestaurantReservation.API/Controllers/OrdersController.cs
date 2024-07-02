@@ -48,7 +48,7 @@ namespace RestaurantReservation.API.Controllers
 
         [HttpPost]
         public async Task<ActionResult<OrderDto>> CreateOrder(
-          OrderForCreationDto order)
+          [FromBody] OrderForCreationDto order)
         {
             var reservationId = order.ReservationId;
             var employeeId = order.EmployeeId;
@@ -56,7 +56,10 @@ namespace RestaurantReservation.API.Controllers
             {
                 return NotFound();
             }
-
+            if (order == null)
+            {
+                return BadRequest();
+            }
             var finalOrder = _mapper.Map<Order>(order);
 
             await _orderRepository.CreateOrderAsync(

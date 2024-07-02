@@ -56,8 +56,12 @@ namespace RestaurantReservation.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<CustomerWithoutListsDto>> CreateCustomer(CustomerForCreationDto customer)
+        public async Task<ActionResult<CustomerWithoutListsDto>> CreateCustomer([FromBody] CustomerForCreationDto customer)
         {
+            if (customer == null)
+            {
+                return BadRequest("Customer cannot be null");
+            }
             var finalCustomer = _mapper.Map<Customer>(customer);
             _customerRepository.CreateCustomerAsync(finalCustomer);
             await _customerRepository.SaveChangesAsync();

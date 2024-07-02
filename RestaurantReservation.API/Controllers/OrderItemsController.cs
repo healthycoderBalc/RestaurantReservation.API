@@ -41,13 +41,18 @@ namespace RestaurantReservation.API.Controllers
 
         [HttpPost]
         public async Task<ActionResult<OrderItemDto>> CreateOrderItem(
-           OrderItemForCreationDto orderItem)
+           [FromBody] OrderItemForCreationDto orderItem)
         {
             var orderId = orderItem.OrderId;
             var menuItemId = orderItem.MenuItemId;
             if (!await _orderItemRepository.OrderAndItemExistsAsync(orderId, menuItemId))
             {
                 return NotFound();
+            }
+
+            if (orderItem == null)
+            {
+                return BadRequest();
             }
 
             var finalOrderItem = _mapper.Map<OrderItem>(orderItem);

@@ -45,12 +45,17 @@ namespace RestaurantReservation.API.Controllers
 
         [HttpPost]
         public async Task<ActionResult<TableDto>> CreateTable(
-    TableForCreationDto table)
+    [FromBody] TableForCreationDto table)
         {
             var restaurantId = table.RestaurantId;
             if (!await _tableRepository.RestaurantExistsAsync(restaurantId))
             {
                 return NotFound();
+            }
+
+            if (table == null)
+            {
+                return BadRequest();
             }
 
             var finalTable = _mapper.Map<Table>(table);

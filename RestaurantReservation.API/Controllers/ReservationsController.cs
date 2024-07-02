@@ -56,7 +56,7 @@ namespace RestaurantReservation.API.Controllers
 
         [HttpPost]
         public async Task<ActionResult<ReservationDto>> CreateReservation(
-       ReservationForCreationDto reservation)
+       [FromBody] ReservationForCreationDto reservation)
         {
             var customerId = reservation.CustomerId;
             var restaurantId = reservation.RestaurantId;
@@ -64,6 +64,11 @@ namespace RestaurantReservation.API.Controllers
             if (!await _reservationRepository.CustomerRestaurantAndTableExistsAsync(customerId, restaurantId, tableId))
             {
                 return NotFound();
+            }
+
+            if (reservation == null)
+            {
+                return BadRequest();
             }
 
             var finalReservation = _mapper.Map<Reservation>(reservation);

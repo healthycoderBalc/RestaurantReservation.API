@@ -45,8 +45,12 @@ namespace RestaurantReservation.API.Controllers
 
         [HttpPost]
         public async Task<ActionResult<RestaurantDto>> CreateRestaurant(
-     RestaurantForCreationDto restaurant)
+     [FromBody] RestaurantForCreationDto restaurant)
         {
+            if (restaurant == null)
+            {
+                return BadRequest();
+            }
             var finalRestaurant = _mapper.Map<Restaurant>(restaurant);
 
             _restaurantRepository.CreateRestaurantAsync(

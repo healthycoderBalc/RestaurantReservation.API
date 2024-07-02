@@ -51,14 +51,17 @@ namespace RestaurantReservation.API.Controllers
 
         [HttpPost]
         public async Task<ActionResult<EmployeeDto>> CreateEmployee(
-             EmployeeForCreationDto employee)
+             [FromBody] EmployeeForCreationDto employee)
         {
             var restaurantId = employee.RestaurantId;
             if (!await _employeeRepository.RestaurantExistsAsync(restaurantId))
             {
                 return NotFound();
             }
-
+            if (employee == null)
+            {
+                return BadRequest("Employee cannot be null");
+            }
             var finalEmployee = _mapper.Map<Employee>(employee);
 
             await _employeeRepository.CreateEmployeeAsync(
